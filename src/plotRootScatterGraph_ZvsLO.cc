@@ -14,11 +14,14 @@ void plotRootScatterGraph_ZvsLO(const std::string& folder, const std::string& tr
                           const std::string& treeName2, const std::string& branchName2, 
                           const std::string& treeName3, const std::string& branchName3, 
                           const std::string& plotName,
-                          double xMin = -30, double xMax = 30, double yMin = -1, double yMax = 6000, const std::string& saveFolder = ".")
+                          double xMin = -30, double xMax = 30, double yMin = -1, double yMax = 9000, const std::string& saveFolder = ".")
 {
     // Read data from root file
+    std::cout << "Reading X data " << std::endl;
     std::vector<double> data1 = readRootDataFromFolder(folder, treeName1, branchName1);
+    std::cout << "Reading Y1 data " << std::endl;
     std::vector<double> data2 = readRootDataFromFolder(folder, treeName2, branchName2);
+    std::cout << "Reading Y2 data " << std::endl;
     std::vector<double> data3 = readRootDataFromFolder(folder, treeName3, branchName3);
 
     // Check that data is of same size

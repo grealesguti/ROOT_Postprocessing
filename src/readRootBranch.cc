@@ -34,6 +34,8 @@ std::vector<double> readRootBranch(const char* fileName, const char* treeName, c
 			file->Close();
     }else {
 		std::cout << "Sth wrong with the file!!!"<< std::endl;
+		
+		std::cout << "Branch: "<< branchName << std::endl;
 		}
 
     return data;
