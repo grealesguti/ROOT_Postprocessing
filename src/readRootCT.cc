@@ -4,19 +4,20 @@
 #include <vector>
 #include "checkRootData.cc"
 #include "utils.cc"
-std::tuple<std::vector<double>, std::vector<double>, std::vector<double>> readRootCT(const char* fileName)
+std::tuple<std::vector<double>, std::vector<double>,std::vector<double>, std::vector<double>> readRootCT(const char* fileName)
 {
 	
 	
     std::cout << "fileName: " << fileName << std::endl;
 
-    std::vector<double> CTL1, CTL1Div, gunZ;
+    std::vector<double> CTL1, CTL1Div_L,CTL1Div_R, gunZ;
 
     if (checkRootData(fileName,"EndOfEvent","fphL")) {
         // setting branches and trees
         TFile* file = TFile::Open(fileName);
         TTree *treeEOE = (TTree*)file->Get("EndOfEvent");
         TBranch* branch_phL = treeEOE->GetBranch("fphL");
+        TBranch* branch_phR = treeEOE->GetBranch("fphR");
 
         TBranch* branch_primaryZ = treeEOE->GetBranch("fPrimaryZ");
 
@@ -26,13 +27,14 @@ std::tuple<std::vector<double>, std::vector<double>, std::vector<double>> readRo
         TBranch* branch_Evt = treeD->GetBranch("fEvent");
 
         // Set address of each reading variable
-        double fX,fZ,fPrimaryZ,fphL;
+        double fX,fZ,fPrimaryZ,fphL,fphR;
         int evt;
         branch_HX->SetAddress(&fX);
         branch_HZ->SetAddress(&fZ);
         branch_Evt->SetAddress(&evt);
         branch_primaryZ->SetAddress(&fPrimaryZ);
         branch_phL->SetAddress(&fphL);
+        branch_phR->SetAddress(&fphR);
 
 			// calculating Cross-Talk ph by entries
 		std::vector<double> CTL1(treeEOE->GetEntries(), 0.0);
@@ -45,12 +47,15 @@ std::tuple<std::vector<double>, std::vector<double>, std::vector<double>> readRo
             }                                            
         }         
             // calculating Cross-Talk percentage by entries
-		std::vector<double> CTL1Div(treeEOE->GetEntries(), 0.0);
+		std::vector<double> CTL1Div_R(treeEOE->GetEntries(), 0.0);
+		std::vector<double> CTL1Div_L(treeEOE->GetEntries(), 0.0);
 		std::vector<double> gunZ(treeEOE->GetEntries(), 0.0);
 
         for (int i = 0; i < treeEOE->GetEntries(); i++) {
             treeEOE->GetEntry(i);
-            CTL1Div[i] = CTL1[i] / fphL;       
+            CTL1Div_L[i] = CTL1[i] / fphL;       
+            CTL1Div_R[i] = CTL1[i] / fphR;       
+
             gunZ[i] = fPrimaryZ * 1000;                                  
         }     
 
@@ -58,18 +63,21 @@ std::tuple<std::vector<double>, std::vector<double>, std::vector<double>> readRo
         file->Close();
         // remove the first element from each vector
         CTL1.erase(CTL1.begin());
-        CTL1Div.erase(CTL1Div.begin());
+        CTL1Div_L.erase(CTL1Div_L.begin());
+        CTL1Div_R.erase(CTL1Div_R.begin());
+
         gunZ.erase(gunZ.begin());
         
         print_vector(CTL1);
-        print_vector(CTL1Div);
+        print_vector(CTL1Div_L);
+        print_vector(CTL1Div_R);
+
         print_vector(gunZ);
 
-        return std::make_tuple(CTL1, CTL1Div, gunZ);
-        return std::make_tuple(CTL1, CTL1Div, gunZ);
+        return std::make_tuple(CTL1, CTL1Div_L,CTL1Div_R, gunZ);
     }else {
 		std::cout << "Sth wrong with the file!!!"<< std::endl;
-		return std::make_tuple(CTL1, CTL1Div, gunZ);
+		return std::make_tuple(CTL1, CTL1Div_L,CTL1Div_R, gunZ);
 		}
 
 }

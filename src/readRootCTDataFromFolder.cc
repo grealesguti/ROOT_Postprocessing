@@ -6,9 +6,9 @@
 #include <tuple>
 
 // Function to read all ROOT files in a folder and append the resulting vectors of ctl1, ctl1Div, and gunZ
-std::tuple<std::vector<double>, std::vector<double>, std::vector<double>> readRootCTDataFromFolder(const std::string& folderPath)
+std::tuple<std::vector<double>, std::vector<double>,std::vector<double>, std::vector<double>> readRootCTDataFromFolder(const std::string& folderPath)
 {
-    std::vector<double> ctl1All, ctl1DivAll, gunZAll;
+    std::vector<double> ctl1All, ctl1DivAll,ctl1DivAll_R, gunZAll;
     
     // Loop through all files in the folder
     for (const auto& entry : std::filesystem::directory_iterator(folderPath))
@@ -19,15 +19,17 @@ std::tuple<std::vector<double>, std::vector<double>, std::vector<double>> readRo
             std::cout << "Reading file: " << entry.path() << std::endl;
             
             // Read the ROOT file using readRootCT function
-            auto [ctl1, ctl1Div, gunZ] = readRootCT(entry.path().c_str());
+            auto [ctl1, ctl1Div,ctl1Div_R, gunZ] = readRootCT(entry.path().c_str());
             
             // Append the resulting vectors to the overall vectors
             ctl1All.insert(ctl1All.end(), ctl1.begin(), ctl1.end());
             ctl1DivAll.insert(ctl1DivAll.end(), ctl1Div.begin(), ctl1Div.end());
+            ctl1DivAll_R.insert(ctl1DivAll_R.end(), ctl1Div_R.begin(), ctl1Div_R.end());
+
             gunZAll.insert(gunZAll.end(), gunZ.begin(), gunZ.end());
         }
     }
     
     // Return the resulting appended vectors
-    return std::make_tuple(ctl1All, ctl1DivAll, gunZAll);
+    return std::make_tuple(ctl1All, ctl1DivAll,ctl1DivAll_R, gunZAll);
 }

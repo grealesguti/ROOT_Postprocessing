@@ -13,13 +13,17 @@ void plotHistRootData_CTX(const std::string& folder, const std::string& plotName
 							const std::string& saveFolder = ".")
 {
     // Read data from root file
-	auto [ctl1, ctl1Div_L, gunZ] = readRootCTDataFromFolder(folder);
+	auto [ctl1, ctl1Div_L,ctl1Div_R, gunZ] = readRootCTDataFromFolder(folder);
     
     
     // Create histogram
     TH1D* hist_L = new TH1D("hist", "", nBins, xMin, xMax);
     for (double d : ctl1Div_L)
         hist_L->Fill(d);
+        
+    TH1D* hist_R = new TH1D("hist", "", nBins, xMin, xMax);
+    for (double d : ctl1Div_R)
+        hist_R->Fill(d);
 
     Double_t factor = 1.;
     Double_t mlo=hist_L->GetMaximum();
@@ -30,7 +34,14 @@ void plotHistRootData_CTX(const std::string& folder, const std::string& plotName
     hist_L->SetLineWidth(2);
     hist_L->SetLineColorAlpha(kGray, 0.7);
    
-	
+    Double_t mlo1=hist_R->GetMaximum();
+    hist_R->Scale(factor/mlo1);
+    hist_R->SetXTitle("Light Collection [ph]");
+    hist_R->SetYTitle("Intensity");
+    hist_R->SetMarkerStyle(kMultiply);
+    hist_R->SetLineWidth(2);
+    hist_R->SetLineColorAlpha(kGray+2, 0.7);
+    
     // Create canvas
     TCanvas* c = new TCanvas("c", "", 800, 600);
     c->SetTopMargin(0.05);
@@ -44,6 +55,10 @@ void plotHistRootData_CTX(const std::string& folder, const std::string& plotName
     hist_L->SetLineWidth(2);
     hist_L->Draw("HIST SAME C ");
     
+    hist_R->Draw("E SAME");
+    hist_R->SetLineColorAlpha(kGray+2, 0.7);
+    hist_R->SetLineWidth(2);
+    hist_R->Draw("HIST SAME C ");
     // Save plot to pdf file
     std::cout << "Save folder: "<< saveFolder << std::endl;
 
@@ -53,5 +68,7 @@ void plotHistRootData_CTX(const std::string& folder, const std::string& plotName
 
     delete c;
     delete hist_L;
+    delete hist_R;
+
 }
 
