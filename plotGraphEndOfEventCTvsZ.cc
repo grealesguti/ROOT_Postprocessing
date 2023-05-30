@@ -21,7 +21,7 @@ void plotGraphEndOfEventCTvsZ(const std::string& folder,double yMax = 12000,
 //                          const std::string& treeName2, const std::string& branchName2, const std::string& plotName,
 //                          double xMin = -30, double xMax = 30, double yMin = -1, double yMax = 6000, const std::string& saveFolder = ".")
 	
-	plotRootScatterGraph_CTvsZ("../TierIIData/2023_02/"+folder,
+	plotRootScatterGraph_CTvsZ("../TierIIData/2023_03/"+folder,
 								"EndOfEvent_fPrimaryZ_vs_fLO_" + folder + currentDateTime,-29,29,0,yMax,saveFolder);
 }
 //fPrimaryZ

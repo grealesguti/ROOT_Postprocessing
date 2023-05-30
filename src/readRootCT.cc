@@ -42,16 +42,18 @@ std::tuple<std::vector<double>, std::vector<double>,std::vector<double>, std::ve
 
         for (int i = 0; i < treeD->GetEntries(); i++) {
             treeD->GetEntry(i);
-            if (fX > -6.4 && fX < -3.2 && fZ > 0) {
+            //if (fX > -6.4 && fX < -3.2 && fZ > 0) { // Argument to select LYSO_L -> thickness
+            //if (fX > -6.4 && fX < -3.2 && fZ > 0) { // Argument to select LYSO_L -> thickness
+            if (fX > -9.1 && fX < -4.6 && fZ > 0) {
                 CTL1[evt] += 1;
             }                                            
         }         
-            // calculating Cross-Talk percentage by entries
+            // calculating Cross-Talk percentage by entries	
 		std::vector<double> CTL1Div_R(treeEOE->GetEntries(), 0.0);
 		std::vector<double> CTL1Div_L(treeEOE->GetEntries(), 0.0);
 		std::vector<double> gunZ(treeEOE->GetEntries(), 0.0);
 
-        for (int i = 0; i < treeEOE->GetEntries(); i++) {
+        for (int i = 0; i < treeEOE->GetEntries(); i++) { // Do through detected to avoid issues in the code!!!
             treeEOE->GetEntry(i);
             CTL1Div_L[i] = CTL1[i] / fphL;       
             CTL1Div_R[i] = CTL1[i] / fphR;       

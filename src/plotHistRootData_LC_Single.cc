@@ -11,7 +11,7 @@
 #include "createSumOfGausFunctions.cc"
 #include "saveFitResultsToFile.cc"
 
-void plotHistRootData_LC_Multiple2(	const std::string& folder1="../../TierIIData/2023_02/Rst_FL_Muon_23-02-10_SiPM375", 
+void plotHistRootData_LC_Single(	const std::string& folder1="../../TierIIData/2023_02/Rst_FL_Muon_23-02-10_SiPM375", 
 									const std::string& folder2="../../TierIIData/2023_02/Final_NSGAII_375x3" , 
 									const std::string& treeName="EndOfEvent", 
 									const std::string& branchName="fHits", 
@@ -111,7 +111,7 @@ void plotHistRootData_LC_Multiple2(	const std::string& folder1="../../TierIIData
     hist2->SetLineColor(kRed+2);
     hist2->SetLineWidth(2);
     //hist2->SetFillColorAlpha(kRed+2,0.7);
-    hist2->Draw("HISTO SAME  ");
+    //hist2->Draw("HISTO SAME  ");
     
 	// legend
     //TLegend *legend = new TLegend(0.55, 0.55, 0.95, 0.95);
@@ -132,14 +132,14 @@ void plotHistRootData_LC_Multiple2(	const std::string& folder1="../../TierIIData
     {
         fitL = createSumOfGausFunctions(hist1, xMin, xMax);
         fitFunc2 = createSumOfGausFunctions(hist2, xMin, xMax);
-        legend = new TLegend(0.2, 0.55, 0.6, 0.95);
+        legend = new TLegend(0.2, 0.75, 0.6, 0.95);
 
     }
     else
     {
         fitL = fitL = new TF1("fitFunc", "landau", xMin, xMax);
         fitFunc2 = createSumOfLandauFunctions(hist2, xMin, xMax);
-        legend = new TLegend(0.55, 0.55, 0.95, 0.95);
+        legend = new TLegend(0.55, 0.75, 0.95, 0.95);
     }
     legend->Draw();
 
@@ -151,28 +151,17 @@ void plotHistRootData_LC_Multiple2(	const std::string& folder1="../../TierIIData
     fitL->SetLineStyle(2);
 	//fitL->Draw("same");
 
-	//TF1* fitFunc2 = createSumOfGausFunctions(hist2, xMin, xMax);
-	//TF1* fitFunc2 = new TF1("fitFunc", "gaus", xMin, xMax);
-	//TF1* fitFunc2 = createSumOfLandauFunctions(hist2, xMin, xMax);
-	hist2->Fit(fitFunc2);
-	fitFunc2->SetLineColorAlpha(kRed, 1);
-    fitFunc2->SetLineStyle(2);
-	//fitFunc2->Draw("same");
+
 
    //legend->AddEntry(hist1, "NSGA - 375x300", "l");
     legend->AddEntry(hist1, (leg_name).c_str(), "l");
    legend->AddEntry((TObject*)0, Form("Mean: %.2f", hist1->GetMean()), "");
    legend->AddEntry((TObject*)0, Form("Std Dev: %.2f", hist1->GetStdDev()), "");
    //legend->AddEntry(fitL, (fit_name + " fit").c_str(), "l");
-   //legend->AddEntry(hist2, "NSGA - 375x300 - Optimized", "l");
-   legend->AddEntry(hist2, (leg_name2).c_str(), "l");
-   legend->AddEntry((TObject*)0, Form("Mean: %.2f", hist2->GetMean()), "");
-   legend->AddEntry((TObject*)0, Form("Std Dev: %.2f", hist2->GetStdDev()), "");
-   //legend->AddEntry(fitFunc2, (fit_name + " fit").c_str(), "l");
+
 
 	saveFitResultsToFile(fitL,6,(saveFolder+plotName+"_fit1.txt").c_str());
 	
-	saveFitResultsToFile(fitFunc2,6,(saveFolder+plotName+"_fit2.txt").c_str());
 
     double maxY=0;
     if (hist1->GetMaximum()>hist2->GetMaximum()){
@@ -188,8 +177,9 @@ void plotHistRootData_LC_Multiple2(	const std::string& folder1="../../TierIIData
 
     c->SaveAs((saveFolder + plotName + ".pdf").c_str());
     c->SaveAs((saveFolder + plotName + ".tex").c_str());
-    
-    
+c->Update(); // Update the canvas to show the plot
+c->Modified(); // Notify the canvas that it has been modified
+c->WaitPrimitive(); // Wait for user interaction (closing the plot window) before exiting
     
 
     delete c;

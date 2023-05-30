@@ -55,6 +55,7 @@ void plotRootScatterGraph(const std::string& folder, const std::string& treeName
     std::cout << "Save path: "<< plotName + ".pdf" << std::endl;
 
     canvas->SaveAs((saveFolder + plotName + ".pdf").c_str());
+    canvas->SaveAs((saveFolder + plotName + ".tex").c_str());
 
     delete canvas;
     delete graph;

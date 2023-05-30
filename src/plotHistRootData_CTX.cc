@@ -50,12 +50,13 @@ void plotHistRootData_CTX(const std::string& folder, const std::string& plotName
     c->SetRightMargin(0.05);
 
     // Draw histogram
-    hist_L->Draw("E");
+    /*hist_L->Draw("E");
     hist_L->SetLineColorAlpha(kGray, 0.7);
     hist_L->SetLineWidth(2);
     hist_L->Draw("HIST SAME C ");
-    
-    hist_R->Draw("E SAME");
+    */
+    //hist_R->Draw("E SAME");
+    hist_R->Draw("E");
     hist_R->SetLineColorAlpha(kGray+2, 0.7);
     hist_R->SetLineWidth(2);
     hist_R->Draw("HIST SAME C ");
@@ -65,6 +66,7 @@ void plotHistRootData_CTX(const std::string& folder, const std::string& plotName
     std::cout << "Save path: "<< plotName + ".pdf" << std::endl;
 
     c->SaveAs((saveFolder + plotName + ".pdf").c_str());
+    c->SaveAs((saveFolder + plotName + ".tex").c_str());
 
     delete c;
     delete hist_L;

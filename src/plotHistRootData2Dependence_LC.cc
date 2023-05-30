@@ -62,6 +62,7 @@ void plotHistRootData2Dependence_LC(const std::string& folder, const std::string
     std::cout << "Save path: "<< plotName + ".pdf" << std::endl;
 
     c->SaveAs((saveFolder + plotName + ".pdf").c_str());
+    c->SaveAs((saveFolder + plotName + ".tex").c_str());
 
     delete c;
     delete hist;

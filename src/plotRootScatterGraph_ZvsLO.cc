@@ -10,11 +10,13 @@
 #include <vector>
 #include "readRootDataFromFolder.cc"
 
-void plotRootScatterGraph_ZvsLO(const std::string& folder, const std::string& treeName1, const std::string& branchName1,
-                          const std::string& treeName2, const std::string& branchName2, 
-                          const std::string& treeName3, const std::string& branchName3, 
-                          const std::string& plotName,
-                          double xMin = -30, double xMax = 30, double yMin = -1, double yMax = 9000, const std::string& saveFolder = ".")
+void plotRootScatterGraph_ZvsLO(const std::string& folder="../../TierIIData/2023_02/Rst_FL_Muon_23-02-09v2", 
+							const std::string& treeName1="EndOfEvent", const std::string& branchName1="fPrimaryZ",
+							const std::string& treeName2="EndOfEvent", const std::string& branchName2="fphL", 
+							const std::string& treeName3="EndOfEvent", const std::string& branchName3="fphR", 
+							const std::string& plotName="EndOfEvent_fPrimaryZ_vs_fLO_",
+							double xMin = -29, double xMax = 29, double yMin = 0, 
+							double yMax = 12000, const std::string& saveFolder = "../Figures/LOHistMult/")
 {
     // Read data from root file
     std::cout << "Reading X data " << std::endl;
@@ -91,6 +93,7 @@ void plotRootScatterGraph_ZvsLO(const std::string& folder, const std::string& tr
     std::cout << "Save path: "<< plotName + ".pdf" << std::endl;
 
     canvas->SaveAs((saveFolder + plotName + ".pdf").c_str());
+    canvas->SaveAs((saveFolder + plotName + ".tex").c_str());
 
     delete canvas;
     delete graph;

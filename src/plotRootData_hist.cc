@@ -37,6 +37,7 @@ void plotRootData_hist(const std::string& folder, const std::string& treeName, c
 
     // Save plot to pdf file
     c->SaveAs((plotName + ".pdf").c_str());
+    c->SaveAs((plotName + ".tex").c_str());
 
     delete c;
     delete hist;

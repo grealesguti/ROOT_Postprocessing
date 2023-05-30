@@ -16,5 +16,5 @@ void plotHistEndOfEventEdepLC(const std::string& folder, double xMin = 0, double
     std::cout << "Hist values: "<< xMin << " " << xMax << " " << nBins << std::endl;
 
     std::cout << "Save folder: "<< saveFolder << std::endl;
-    plotHistRootData_LC("../TierIIData/2023_02/"+folder, "EndOfEvent", "fHits", "EndOfEvent_fLC_" + folder + currentDateTime, xMin , xMax , nBins, saveFolder);
+    plotHistRootData_LC("../TierIIData/2023_03/"+folder, "EndOfEvent", "fHits", "EndOfEvent_fLC_" + folder + currentDateTime, xMin , xMax , nBins, saveFolder);
 }
