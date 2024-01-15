@@ -241,7 +241,7 @@ def sort_strings_by_int(string_list):
     string_list.sort(key=lambda s: int(s.split('_')[-1].split('.')[0]))
     return string_list
 
-def filter_values(x, y, y_range):
+def filter_values(x, y, y_range, axis=0):
     # Create an empty list to store the filtered x and y values
 	filtered_x = []
 	filtered_y = []

@@ -1,0 +1,6 @@
+Fit Parameter 1: 1.13976 +/- 0.0326915 (Relative Error: 0.0286828)
+Fit Parameter 2: 6600.61 +/- 15.7746 (Relative Error: 0.00238987)
+Fit Parameter 3: 368.519 +/- 8.09218 (Relative Error: 0.0219586)
+Fit Parameter 4: nan +/- 0 (Relative Error: nan)
+Fit Parameter 5: nan +/- 0 (Relative Error: nan)
+Fit Parameter 6: nan +/- 0 (Relative Error: nan)

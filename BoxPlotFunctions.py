@@ -343,7 +343,7 @@ def box_plot_1xLO(folder: str, output_filename: str, npol: int):
     ax.grid(True, axis='y', linestyle='--', color='lightgray')
     # Add labels
     ax.set_xlabel(r"Length $\left(\si{\milli\meter}\right)$")
-    ax.set_ylabel(r"Light Output $\left(\si{\sum\gamma_d/\mega\electronvolt}\right)$")
+    ax.set_ylabel(r"Light Output $\left(\si{\gamma_d/\mega\electronvolt}\right)$")
 
     # Customize the color of all boxes
     for box in boxplot['boxes']:
@@ -385,7 +385,7 @@ def box_plot_1xLO(folder: str, output_filename: str, npol: int):
     legend_elements = [
     Line2D([0], [0], marker='o', color='black', markersize=3, label='Outliers', linestyle='None'),
     Line2D([0], [0], marker='o', color='red', markersize=3, label='Mean', linestyle='None'),
-    Line2D([0], [0], color='red', linestyle='--', label='Fit, R2 {:.2f} \n{:.2e}x² + {:.2f}x + {:.2f}'.format(r2, *np.polyfit(x_filtered, y_filtered, npol)))
+    Line2D([0], [0], color='red', linestyle='--', label='Fit, $R^2$ {:.2f} \n{:.2e}x² + {:.2f}x + {:.2f}'.format(r2, *np.polyfit(x_filtered, y_filtered, npol)))
     ]
 
 

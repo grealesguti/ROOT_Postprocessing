@@ -1,0 +1,6 @@
+Fit Parameter 1: 94.7541 +/- 2.8411 (Relative Error: 0.029984)
+Fit Parameter 2: 7270.62 +/- 26.8094 (Relative Error: 0.00368737)
+Fit Parameter 3: 435.113 +/- 12.5969 (Relative Error: 0.028951)
+Fit Parameter 4: 19.9322 +/- 4.01872 (Relative Error: 0.20162)
+Fit Parameter 5: 8419.83 +/- 25.8899 (Relative Error: 0.00307487)
+Fit Parameter 6: 234.467 +/- 40.72 (Relative Error: 0.17367)
